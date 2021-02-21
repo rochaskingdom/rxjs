@@ -7,6 +7,7 @@
       <mat-radio-button name="error" value="error">Error Handling</mat-radio-button>
       <mat-radio-button name="drag-and-drop" value="drag-and-drop">Drag and Drop</mat-radio-button>
       <mat-radio-button name="unsubscribre" value="unsubscribre">Unsubscribre</mat-radio-button>
+      <mat-radio-button name="switch-merge" value="switch-merge">Switch / Merge</mat-radio-button>
     </mat-radio-group>
   </div>
   <div fxFlex="70" [(ngModel)]="option" fxLayout="column" fxLayoutAlign="center start">
@@ -18,6 +19,7 @@
       <app-error-handling *ngSwitchCase="'error'" fxFill></app-error-handling>
       <app-drag-and-drop *ngSwitchCase="'drag-and-drop'" fxFill></app-drag-and-drop>
       <app-unsubscribe *ngSwitchCase="'unsubscribre'" fxFill></app-unsubscribe>
+      <app-switch-merge *ngSwitchCase="'switch-merge'" fxFill></app-switch-merge>
     </ng-container>
   </div>
 </div>
