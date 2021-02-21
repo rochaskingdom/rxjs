@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { fromEvent, Observable, of } from 'rxjs';
 import { Person } from './person.model';
 import { HttpClient } from '@angular/common/http';
-import { map, mergeAll, mergeMap } from 'rxjs/operators';
+import { debounceTime, mergeMap, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-switch-merge',
@@ -22,7 +22,8 @@ export class SwitchMergeComponent implements OnInit {
 
   ngOnInit(): void {
     // this.firstOption();
-    this.secondOption();
+    // this.secondOption();
+    this.thirdOption();
   }
 
   filterPeople(searchInput: string): Observable<Person[]> {
@@ -31,6 +32,20 @@ export class SwitchMergeComponent implements OnInit {
     } else {
       return this.http.get<Person[]>(`${this.url}/${searchInput}`);
     }
+  }
+
+  thirdOption(): void {
+    const keyup$ = fromEvent(this.el.nativeElement, 'keyup');
+
+    // this.people$ = keyup$
+    //   .pipe(map(e => this.filterPeople(this.searchInput)))
+    //   .pipe(switchAll());
+
+    this.people$ = keyup$
+      .pipe(
+        debounceTime(700),
+        switchMap(() => this.filterPeople(this.searchInput))
+      );
   }
 
   secondOption(): void {
