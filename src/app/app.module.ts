@@ -12,6 +12,7 @@ import { ErrorHandlingComponent } from './error-handling/error-handling.componen
 import { DragAndDropComponent } from './drag-and-drop/drag-and-drop.component';
 import { UnsubscribeComponent } from './unsubscribe/unsubscribe.component';
 import { SwitchMergeComponent } from './switch-merge/switch-merge.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,9 +29,11 @@ import { SwitchMergeComponent } from './switch-merge/switch-merge.component';
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
