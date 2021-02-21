@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { fromEvent, Observable, of } from 'rxjs';
 import { Person } from './person.model';
 import { HttpClient } from '@angular/common/http';
+import { map, mergeAll } from 'rxjs/operators';
 
 @Component({
   selector: 'app-switch-merge',
@@ -20,7 +21,8 @@ export class SwitchMergeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.firstOption();
+    // this.firstOption();
+    this.secondOption();
   }
 
   filterPeople(searchInput: string): Observable<Person[]> {
@@ -29,6 +31,16 @@ export class SwitchMergeComponent implements OnInit {
     } else {
       return this.http.get<Person[]>(`${this.url}/${searchInput}`);
     }
+  }
+
+  secondOption(): void {
+    const keyup$ = fromEvent(this.el.nativeElement, 'keyup');
+    const fetch$ = keyup$.pipe(map(e => this.filterPeople(this.searchInput)));
+    fetch$
+        .pipe(mergeAll())
+        .subscribe(data => console.log(data));
+
+    this.people$ = fetch$.pipe(mergeAll());
   }
 
   firstOption(): void {
